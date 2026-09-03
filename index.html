@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boost // Saluran WA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ====== STYLE ====== */
+    :root {
+      --bg: #0a0714;
+      --bg-panel: #150f24;
+      --bg-panel-solid: #150f24;
+      --line: rgba(255,255,255,0.09);
+      --violet: #8b5cf6;
+      --cyan: #22d3ee;
+      --pink: #f472b6;
+      --green: #2dd4a7;
+      --grad: linear-gradient(90deg, var(--violet), var(--cyan));
+      --grad-hero: linear-gradient(90deg, var(--green), var(--cyan));
+      --ink: #f3f1fb;
+      --ink-dim: #9b93b8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Sora', sans-serif;
+      min-height:100vh;
+    }
+    body {
+      display:flex;
+      justify-content:center;
+      padding: 44px 16px 60px;
+      position: relative;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at -5% -10%, rgba(139,92,246,0.28), transparent 40%),
+        radial-gradient(circle at 105% 90%, rgba(34,211,238,0.18), transparent 38%),
+        var(--bg);
+    }
+    .sheet { width:100%; max-width:460px; }
+    .hero { text-align:center; padding:10px 6px 26px; }
+    .hero h1 { font-size:34px; font-weight:800; line-height:1.2; letter-spacing:-0.01em; }
+    .hero h1 .accent { display:block; background:var(--grad-hero); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero p { margin:16px auto 0; font-size:14.5px; color:var(--ink-dim); max-width:32ch; line-height:1.6; }
+    .hero-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:22px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:500; color:var(--ink); background:rgba(255,255,255,0.06); border:1px solid var(--line); padding:9px 16px; border-radius:100px; }
+    .hero-badge .ic { font-size:14px; }
+    .sec-label { font-size:14px; font-weight:600; color:var(--ink); margin:30px 0 12px 6px; display:flex; align-items:center; gap:8px; }
+    .sec-label small { display:block; font-size:12px; font-weight:400; color:var(--ink-dim); margin-top:2px; }
+    .packages { display:flex; flex-direction:column; gap:10px; }
+    .pkg { display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:16px; border:1px solid var(--line); background:var(--bg-panel); cursor:pointer; transition:transform 0.15s, border-color 0.15s, background 0.15s; text-decoration:none; color:inherit; }
+    .pkg:hover { transform:translateY(-2px); border-color:rgba(139,92,246,0.55); background:rgba(255,255,255,0.07); }
+    .pkg .idx { width:34px; height:34px; flex-shrink:0; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-dim); }
+    .pkg .name { font-size:14.5px; font-weight:600; flex:1 1 0; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .pkg .order-tag { font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:600; letter-spacing:0.03em; color:var(--bg); background:var(--grad); padding:3px 9px; border-radius:100px; flex-shrink:0; }
+    .pkg .price { font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--ink); font-weight:600; text-align:right; flex-shrink:0; margin-left:auto; }
+    .pkg .arrow { color:var(--ink-dim); font-size:14px; flex-shrink:0; transition:transform 0.15s, color 0.15s; }
+    .pkg:hover .arrow { transform:translateX(3px); color:var(--cyan); }
+    .pkg.hot { border-color:rgba(244,114,182,0.5); background:linear-gradient(135deg, rgba(139,92,246,0.14), rgba(34,211,238,0.08)); }
+    .features { display:flex; gap:10px; margin-top:22px; }
+    .feat { flex:1; border:1px solid var(--line); border-radius:14px; padding:14px 10px; text-align:center; background:var(--bg-panel); }
+    .feat .ic { font-size:17px; margin-bottom:6px; }
+    .feat .lb { font-size:11.5px; color:var(--ink-dim); font-weight:500; }
+    .request-box { margin-top:10px; display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); border-radius:18px; padding:18px; background:var(--bg-panel); }
+    .req-title { font-size:14.5px; font-weight:700; }
+    .req-sub { font-size:12.5px; color:var(--ink-dim); line-height:1.5; margin-top:-6px; }
+    .req-input { width:100%; resize:vertical; background:rgba(0,0,0,0.25); border:1px solid var(--line); border-radius:12px; padding:11px 13px; color:var(--ink); font-family:'Sora',sans-serif; font-size:13px; line-height:1.5; }
+    .req-input::placeholder { color:#6b6485; }
+    .req-input:focus { outline:none; border-color:var(--violet); }
+    .req-send { align-self:flex-end; font-family:'Sora',sans-serif; font-size:13px; color:#0a0714; background:var(--grad); border:none; padding:11px 20px; border-radius:100px; font-weight:700; cursor:pointer; transition:filter 0.15s, transform 0.15s; }
+    .req-send:hover { filter:brightness(1.1); transform:translateY(-1px); }
+    .note { margin-top:22px; border:1px dashed var(--line); border-radius:16px; padding:16px 18px; background:var(--bg-panel); }
+    .note .h { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+    .note ul { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .note li { font-size:12.5px; color:var(--ink-dim); line-height:1.5; padding-left:15px; position:relative; }
+    .note li::before { content:""; position:absolute; left:0; top:6px; width:5px; height:5px; border-radius:50%; background:var(--grad); }
+    .footer { text-align:center; margin-top:30px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#4b4462; letter-spacing:0.04em; cursor:pointer; user-select:none; transition:color 0.2s; }
+    .footer:hover { color:var(--violet); }
+    .owner-panel { display:none; margin-top:20px; border:1px solid rgba(139,92,246,0.4); border-radius:18px; background:var(--bg-panel-solid); overflow:hidden; }
+    .owner-panel.show { display:block; }
+    .op-head { display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:rgba(139,92,246,0.12); font-size:13px; font-weight:700; color:var(--ink); border-bottom:1px solid var(--line); }
+    .op-close { cursor:pointer; color:var(--ink-dim); font-size:15px; }
+    .op-close:hover { color:var(--ink); }
+    .op-list { padding:6px 18px; }
+    .op-row { display:flex; align-items:center; justify-content:space-between; gap:6px; padding:12px 0; border-bottom:1px solid var(--line); font-size:13px; flex-wrap:wrap; }
+    .op-row:last-child { border-bottom:none; }
+    .op-row .op-name { flex:1; min-width:70px; font-weight:500; }
+    .op-row .op-price { font-family:'IBM Plex Mono',monospace; color:var(--cyan); font-size:12px; }
+    .op-row button { font-family:'Sora',sans-serif; font-size:10.5px; font-weight:600; border:none; border-radius:8px; padding:5px 9px; cursor:pointer; white-space:nowrap; transition:0.15s; }
+    .op-edit { background:rgba(34,211,238,0.15); color:var(--cyan); }
+    .op-edit:hover { background:rgba(34,211,238,0.28); }
+    .op-del { background:rgba(244,63,94,0.15); color:#fb7185; }
+    .op-del:hover { background:rgba(244,63,94,0.28); }
+    .op-hot { background:transparent; border:1px solid var(--line) !important; color:var(--ink-dim); font-size:14px; padding:3px 7px !important; transition:0.2s; line-height:1; border-radius:8px !important; }
+    .op-hot.active { color:var(--pink); border-color:var(--pink) !important; background:rgba(244,114,182,0.12); }
+    .op-hot:hover { color:var(--pink); }
+    .op-add { padding:16px 18px 18px; border-top:1px dashed var(--line); }
+    .op-add-title { font-size:12px; font-weight:600; color:var(--ink-dim); margin-bottom:10px; }
+    .op-input { width:100%; background:rgba(0,0,0,0.25); border:1px solid var(--line); border-radius:10px; padding:10px 12px; color:var(--ink); font-family:'Sora',sans-serif; font-size:13px; margin-bottom:9px; }
+    .op-input:focus { outline:none; border-color:var(--violet); }
+    .op-btn.add { width:100%; background:var(--grad); color:#0a0714; border:none; border-radius:100px; padding:11px; font-family:'Sora',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+    .op-btn.add:hover { filter:brightness(1.1); }
+    .op-qris { padding:16px 18px 18px; border-top:1px dashed var(--line); }
+    .qris-preview { width:100%; max-width:220px; margin:0 auto 12px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; min-height:120px; }
+    .qris-preview img { width:100%; display:block; }
+    .qris-preview .empty { font-size:12px; color:var(--ink-dim); padding:30px 10px; text-align:center; }
+    .qris-file-label { display:block; width:100%; text-align:center; font-size:12.5px; font-weight:600; color:var(--cyan); background:rgba(34,211,238,0.1); border:1px dashed rgba(34,211,238,0.4); border-radius:10px; padding:10px; cursor:pointer; margin-bottom:9px; }
+    .qris-file-label:hover { background:rgba(34,211,238,0.18); }
+    .op-qris input[type="file"] { display:none; }
+    .qris-remove { width:100%; background:rgba(244,63,94,0.15); color:#fb7185; border:none; border-radius:100px; padding:9px; font-family:'Sora',sans-serif; font-size:12px; font-weight:600; cursor:pointer; }
+    .qris-remove:hover { background:rgba(244,63,94,0.28); }
+    .qris-pay-box { text-align:center; margin-bottom:14px; }
+    .qris-pay-box img { width:100%; max-width:220px; border-radius:14px; border:1px solid var(--line); }
+    .qris-pay-box .amt { margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--cyan); }
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(5,3,12,0.75); justify-content:center; align-items:center; z-index:999; padding:20px; overflow-y:auto; }
+    .modal-overlay.active { display:flex; }
+    .modal-box { background:var(--bg-panel-solid); border:1px solid rgba(139,92,246,0.35); border-radius:20px; max-width:400px; width:100%; padding:26px 22px 22px; box-shadow:0 30px 60px rgba(0,0,0,0.6); margin:auto; }
+    .modal-title { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+    .modal-msg { font-size:13.5px; color:var(--ink-dim); margin-bottom:16px; line-height:1.55; }
+    .modal-input { width:100%; background:rgba(0,0,0,0.25); border:1px solid var(--line); border-radius:10px; padding:11px 13px; color:var(--ink); font-family:'Sora',sans-serif; font-size:13px; margin-bottom:10px; }
+    .modal-input:focus { outline:none; border-color:var(--violet); }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:8px; }
+    .modal-btn { font-family:'Sora',sans-serif; font-size:12px; border:none; border-radius:100px; padding:9px 18px; cursor:pointer; font-weight:600; }
+    .modal-btn.primary { background:var(--grad); color:#0a0714; }
+    .modal-btn.primary:hover { filter:brightness(1.1); }
+    .modal-btn.secondary { background:transparent; color:var(--ink-dim); border:1px solid var(--line); }
+    .modal-btn.secondary:hover { background:rgba(255,255,255,0.06); }
+    .modal-btn.danger { background:rgba(244,63,94,0.18); color:#fb7185; }
+    .modal-btn.danger:hover { background:rgba(244,63,94,0.3); }
+    .music-fab { position:fixed; bottom:22px; right:22px; width:50px; height:50px; border-radius:50%; background:var(--grad); display:none; align-items:center; justify-content:center; font-size:20px; cursor:pointer; box-shadow:0 8px 22px rgba(139,92,246,0.4); z-index:500; border:none; color:#0a0714; transition:transform 0.15s; }
+    .music-fab.show { display:flex; }
+    .music-fab:active { transform:scale(0.92); }
+    .music-fab.spin .ic-note { animation:spin 3s linear infinite; }
+    @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    .op-music { padding:16px 18px 18px; border-top:1px dashed var(--line); }
+    .music-current { font-size:12px; color:var(--ink-dim); margin-bottom:10px; padding:10px 12px; background:rgba(0,0,0,0.2); border-radius:10px; border:1px solid var(--line); }
+    .music-file-label { display:block; width:100%; text-align:center; font-size:12.5px; font-weight:600; color:var(--cyan); background:rgba(34,211,238,0.1); border:1px dashed rgba(34,211,238,0.4); border-radius:10px; padding:10px; cursor:pointer; margin-bottom:9px; }
+    .music-file-label:hover { background:rgba(34,211,238,0.18); }
+    .op-music input[type="file"] { display:none; }
+    .music-remove { width:100%; background:rgba(244,63,94,0.15); color:#fb7185; border:none; border-radius:100px; padding:9px; font-family:'Sora',sans-serif; font-size:12px; font-weight:600; cursor:pointer; }
+    .music-remove:hover { background:rgba(244,63,94,0.28); }
+    .loading { text-align:center; padding:30px 0; color:var(--ink-dim); font-size:14px; }
+  </style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="hero">
+    <h1>LummXD Store<span class="accent">Boost Followers WA</span></h1>
+    <p>Naikkan jumlah followers saluran WA kamu, tinggal pilih paket, bayar QRIS, dan kirim link.</p>
+    <div class="hero-badges">
+      <div class="hero-badge"><span class="ic">🔒</span>Aman &amp; Terverifikasi</div>
+      <div class="hero-badge"><span class="ic">💳</span>Bayar via QRIS</div>
+    </div>
+  </div>
+
+  <div class="sec-label">Pilih paket<small>Tap salah satu, langsung terhubung ke WhatsApp</small></div>
+  <div class="packages" id="pkgList"><div class="loading">Memuat paket...</div></div>
+
+  <div class="features">
+    <div class="feat"><div class="ic">⚡</div><div class="lb">Proses cepat</div></div>
+    <div class="feat"><div class="ic">🔒</div><div class="lb">Aman &amp; terpercaya</div></div>
+  </div>
+
+  <div class="sec-label">Butuh jumlah lain?</div>
+  <div class="request-box">
+    <div class="req-title">Request custom</div>
+    <div class="req-sub">Tulis kebutuhanmu di sini, nanti langsung terkirim ke WA admin.</div>
+    <textarea id="reqText" class="req-input" rows="3" placeholder="Contoh: mau 200 followers, link saluran: ..."></textarea>
+    <button class="req-send" onclick="kirimRequest()">Kirim ke WhatsApp</button>
+  </div>
+
+  <div class="note">
+    <div class="h">Catatan singkat</div>
+    <ul>
+      <li>Harga dapat berubah sewaktu-waktu</li>
+      <li>Wajib kirim link saluran yang benar</li>
+      <li>No refund setelah proses berjalan</li>
+    </ul>
+  </div>
+
+  <div class="footer" id="footerTrigger">DEV BY LUMMXD</div>
+
+  <!-- OWNER PANEL -->
+  <div class="owner-panel" id="ownerPanel">
+    <div class="op-head">
+      <span>Panel owner</span>
+      <span class="op-close" onclick="tutupPanel()">✕</span>
+    </div>
+    <div class="op-list" id="opList"><div class="loading">Memuat data...</div></div>
+    <div class="op-add">
+      <div class="op-add-title">Tambah layanan</div>
+      <input type="text" id="newName" class="op-input" placeholder="Nama paket, cth: 200 Followers">
+      <input type="text" id="newPrice" class="op-input" placeholder="Harga, cth: 2000">
+      <button class="op-btn add" onclick="tambahPaket()">Tambah paket</button>
+    </div>
+    <div class="op-qris">
+      <div class="op-add-title">QRIS pembayaran</div>
+      <div class="qris-preview" id="qrisPreview"><div class="empty">Memuat...</div></div>
+      <label class="qris-file-label" for="qrisFile">📤 Upload / ganti foto QRIS</label>
+      <input type="file" id="qrisFile" accept="image/*" onchange="uploadQris(event)">
+      <button class="qris-remove" onclick="hapusQris()">Hapus QRIS</button>
+    </div>
+    <div class="op-music">
+      <div class="op-add-title">Musik latar website</div>
+      <div class="music-current" id="musicCurrent">Memuat...</div>
+      <label class="music-file-label" for="musicFile">🎵 Upload / ganti lagu (mp3)</label>
+      <input type="file" id="musicFile" accept="audio/*" onchange="uploadMusic(event)">
+      <button class="music-remove" onclick="hapusMusic()">Hapus musik</button>
+    </div>
+    <div class="op-add" style="border-top:1px dashed var(--line);">
+      <div class="op-add-title">Ganti password owner</div>
+      <input type="password" id="newPass" class="op-input" placeholder="Password baru">
+      <button class="op-btn add" onclick="gantiPassword()">Simpan password</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgAudio" loop></audio>
+<button class="music-fab" id="musicFab" onclick="toggleMusic()">
+  <span class="ic-note" id="musicIcon">🔊</span>
+</button>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">Modal</div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <div id="modalInputs"></div>
+    <div class="modal-actions" id="modalActions">
+      <button class="modal-btn secondary" id="modalCancel">Batal</button>
+      <button class="modal-btn primary" id="modalConfirm">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== FIREBASE SDK ====== -->
+<script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-storage-compat.js"></script>
+
+<script>
+  // ============================================================
+  // 1. KONFIGURASI FIREBASE (sudah diisi dengan punya kamu)
+  // ============================================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFjYZMN2KlXHUem03HzI0ZmuGqtIoVnvc",
+    authDomain: "lummxd-7d751.firebaseapp.com",
+    projectId: "lummxd-7d751",
+    storageBucket: "lummxd-7d751.firebasestorage.app",
+    messagingSenderId: "759391888813",
+    appId: "1:759391888813:web:289c4c7e799df2d68cad24",
+    measurementId: "G-EHB6835BGH"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  // ============================================================
+  // 2. FUNGSI AKSES DATA (semua async)
+  // ============================================================
+
+  // --- PAKET ---
+  function getDefaultPackages() {
+    return [
+      { id: 1, name: "500 Followers", price: "2000", hot: true },
+      { id: 2, name: "1000 Followers", price: "3500", hot: false },
+      { id: 3, name: "2500 Followers", price: "8000", hot: false },
+      { id: 4, name: "5000 Followers", price: "15000", hot: false }
+    ];
+  }
+
+  async function loadPackages() {
+    try {
+      const doc = await db.collection('config').doc('packages').get();
+      if (doc.exists) {
+        const data = doc.data().list || [];
+        if (Array.isArray(data) && data.length > 0) return data;
+      }
+      // default
+      const def = getDefaultPackages();
+      await db.collection('config').doc('packages').set({ list: def });
+      return def;
+    } catch (e) {
+      console.error('loadPackages error', e);
+      return getDefaultPackages();
+    }
+  }
+
+  async function savePackages(packages) {
+    await db.collection('config').doc('packages').set({ list: packages });
+  }
+
+  // --- QRIS ---
+  async function loadQris() {
+    try {
+      const doc = await db.collection('config').doc('qris').get();
+      if (doc.exists) return doc.data().url || '';
+      return '';
+    } catch { return ''; }
+  }
+
+  async function saveQrisUrl(url) {
+    await db.collection('config').doc('qris').set({ url });
+  }
+
+  async function hapusQrisStorage() {
+    await db.collection('config').doc('qris').delete().catch(() => {});
+  }
+
+  // --- MUSIK ---
+  async function loadMusic() {
+    try {
+      const doc = await db.collection('config').doc('music').get();
+      if (doc.exists) {
+        return { url: doc.data().url || '', name: doc.data().name || 'Lagu' };
+      }
+      return { url: '', name: '' };
+    } catch { return { url: '', name: '' }; }
+  }
+
+  async function saveMusicData(url, name) {
+    await db.collection('config').doc('music').set({ url, name: name || 'Lagu' });
+  }
+
+  async function hapusMusicStorage() {
+    await db.collection('config').doc('music').delete().catch(() => {});
+  }
+
+  // --- PASSWORD OWNER ---
+  async function loadOwnerPass() {
+    try {
+      const doc = await db.collection('config').doc('password').get();
+      if (doc.exists) return doc.data().value || 'admin112';
+      await db.collection('config').doc('password').set({ value: 'admin112' });
+      return 'admin112';
+    } catch { return 'admin112'; }
+  }
+
+  async function saveOwnerPass(pass) {
+    await db.collection('config').doc('password').set({ value: pass });
+  }
+
+  // ============================================================
+  // 3. RENDER FUNGSI
+  // ============================================================
+
+  async function renderPackages() {
+    const container = document.getElementById('pkgList');
+    const data = await loadPackages();
+    if (!data.length) {
+      container.innerHTML = '<div class="pkg" style="justify-content:center;color:var(--ink-dim);">Belum ada paket</div>';
+      return;
+    }
+    let html = '';
+    data.forEach((pkg, index) => {
+      const hotClass = pkg.hot ? 'hot' : '';
+      const orderTag = pkg.hot ? '<span class="order-tag">HOT</span>' : '';
+      html += `
+        <div class="pkg ${hotClass}" onclick="orderPaket(${pkg.id})">
+          <span class="idx">${String(index+1).padStart(2,'0')}</span>
+          <span class="name">${escHtml(pkg.name)}</span>
+          ${orderTag}
+          <span class="price">Rp ${escHtml(pkg.price)}</span>
+          <span class="arrow">→</span>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  async function renderOwnerPanel() {
+    const container = document.getElementById('opList');
+    const data = await loadPackages();
+    if (!data.length) {
+      container.innerHTML = '<div style="padding:12px 0;color:var(--ink-dim);">Tidak ada paket.</div>';
+    } else {
+      let html = '';
+      data.forEach((pkg) => {
+        const hotClass = pkg.hot ? 'active' : '';
+        const hotIcon = pkg.hot ? '★' : '☆';
+        html += `
+          <div class="op-row">
+            <span class="op-name">${escHtml(pkg.name)}</span>
+            <span class="op-price">Rp ${escHtml(pkg.price)}</span>
+            <button class="op-hot ${hotClass}" onclick="toggleHot(${pkg.id})" title="Toggle Terlaris">${hotIcon}</button>
+            <button class="op-edit" onclick="editPaket(${pkg.id})">Edit</button>
+            <button class="op-del" onclick="hapusPaket(${pkg.id})">Hapus</button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+    await renderQrisPreview();
+    await renderMusicCurrent();
+  }
+
+  async function renderQrisPreview() {
+    const box = document.getElementById('qrisPreview');
+    const qris = await loadQris();
+    if (qris) {
+      box.innerHTML = `<img src="${qris}" alt="QRIS">`;
+    } else {
+      box.innerHTML = '<div class="empty">Belum ada QRIS diupload</div>';
+    }
+  }
+
+  async function renderMusicCurrent() {
+    const box = document.getElementById('musicCurrent');
+    const music = await loadMusic();
+    box.textContent = music.url ? ('🎵 ' + (music.name || 'Lagu terpasang')) : 'Belum ada musik diupload';
+  }
+
+  // ============================================================
+  // 4. CRUD PAKET
+  // ============================================================
+
+  async function tambahPaket() {
+    const nameEl = document.getElementById('newName');
+    const priceEl = document.getElementById('newPrice');
+    const name = nameEl.value.trim();
+    const price = priceEl.value.trim();
+    if (!name || !price) {
+      showModal({
+        title: '⚠️ Data belum lengkap',
+        message: 'Isi nama paket dan harga terlebih dahulu.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      return;
+    }
+    let data = await loadPackages();
+    data.push({ id: Date.now(), name, price, hot: false });
+    await savePackages(data);
+    nameEl.value = '';
+    priceEl.value = '';
+    await renderPackages();
+    await renderOwnerPanel();
+  }
+
+  async function editPaket(id) {
+    let data = await loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    showModal({
+      title: 'Edit paket',
+      message: 'Ubah nama dan harga paket.',
+      inputs: [
+        { key: 'name', placeholder: 'Nama paket', type: 'text' },
+        { key: 'price', placeholder: 'Harga', type: 'text' }
+      ],
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Simpan', type: 'primary', value: true }
+      ]
+    }).then(async result => {
+      if (result.confirmed) {
+        const name = result.values.name.trim() || pkg.name;
+        const price = result.values.price.trim() || pkg.price;
+        pkg.name = name;
+        pkg.price = price;
+        await savePackages(data);
+        await renderPackages();
+        await renderOwnerPanel();
+      }
+    });
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('#modalInputs .modal-input');
+      if (inputs[0]) inputs[0].value = pkg.name;
+      if (inputs[1]) inputs[1].value = pkg.price;
+    }, 0);
+  }
+
+  async function hapusPaket(id) {
+    showModal({
+      title: 'Hapus paket?',
+      message: 'Paket ini akan dihapus permanen dari daftar.',
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Hapus', type: 'danger', value: true }
+      ]
+    }).then(async result => {
+      if (result.confirmed) {
+        let data = await loadPackages();
+        data = data.filter(p => p.id !== id);
+        await savePackages(data);
+        await renderPackages();
+        await renderOwnerPanel();
+      }
+    });
+  }
+
+  async function toggleHot(id) {
+    let data = await loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    pkg.hot = !pkg.hot;
+    await savePackages(data);
+    await renderPackages();
+    await renderOwnerPanel();
+  }
+
+  // ============================================================
+  // 5. QRIS UPLOAD / HAPUS
+  // ============================================================
+
+  async function uploadQris(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      showModal({
+        title: '⚠️ File tidak valid',
+        message: 'Mohon upload file gambar (JPG/PNG) untuk QRIS.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      event.target.value = '';
+      return;
+    }
+    try {
+      const ref = storage.ref('qris/qris_image');
+      await ref.put(file);
+      const url = await ref.getDownloadURL();
+      await saveQrisUrl(url);
+      await renderQrisPreview();
+    } catch (e) {
+      console.error(e);
+      showModal({
+        title: '⚠️ Gagal upload',
+        message: 'Terjadi kesalahan saat upload QRIS. Coba lagi.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+    }
+    event.target.value = '';
+  }
+
+  async function hapusQris() {
+    showModal({
+      title: 'Hapus QRIS?',
+      message: 'Foto QRIS akan dihapus dari cloud.',
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Hapus', type: 'danger', value: true }
+      ]
+    }).then(async result => {
+      if (result.confirmed) {
+        try {
+          await storage.ref('qris/qris_image').delete().catch(() => {});
+        } catch {}
+        await hapusQrisStorage();
+        await renderQrisPreview();
+      }
+    });
+  }
+
+  // ============================================================
+  // 6. MUSIK UPLOAD / HAPUS
+  // ============================================================
+
+  async function uploadMusic(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('audio/')) {
+      showModal({
+        title: '⚠️ File tidak valid',
+        message: 'Mohon upload file audio (MP3) untuk musik latar.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      event.target.value = '';
+      return;
+    }
+    // batas ukuran 5MB agar cepat upload
+    if (file.size > 5 * 1024 * 1024) {
+      showModal({
+        title: '⚠️ File terlalu besar',
+        message: 'Ukuran file maksimal 5MB. Gunakan lagu yang lebih pendek.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      event.target.value = '';
+      return;
+    }
+    try {
+      const ref = storage.ref('music/background_music');
+      await ref.put(file);
+      const url = await ref.getDownloadURL();
+      await saveMusicData(url, file.name);
+      await renderMusicCurrent();
+      initMusicPlayer();
+    } catch (e) {
+      console.error(e);
+      showModal({
+        title: '⚠️ Gagal upload',
+        message: 'Terjadi kesalahan saat upload musik. Coba lagi.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+    }
+    event.target.value = '';
+  }
+
+  async function hapusMusic() {
+    showModal({
+      title: 'Hapus musik?',
+      message: 'Musik latar akan dihapus dari cloud.',
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Hapus', type: 'danger', value: true }
+      ]
+    }).then(async result => {
+      if (result.confirmed) {
+        try {
+          await storage.ref('music/background_music').delete().catch(() => {});
+        } catch {}
+        await hapusMusicStorage();
+        await renderMusicCurrent();
+        const audio = document.getElementById('bgAudio');
+        audio.pause();
+        audio.removeAttribute('src');
+        document.getElementById('musicFab').classList.remove('show');
+      }
+    });
+  }
+
+  // ============================================================
+  // 7. MUSIC PLAYER
+  // ============================================================
+
+  let musicLoaded = false;
+
+  async function initMusicPlayer() {
+    const music = await loadMusic();
+    const audio = document.getElementById('bgAudio');
+    const fab = document.getElementById('musicFab');
+    const icon = document.getElementById('musicIcon');
+    if (!music.url) {
+      fab.classList.remove('show');
+      musicLoaded = false;
+      return;
+    }
+    audio.src = music.url;
+    audio.volume = 0.7;
+    fab.classList.add('show');
+    musicLoaded = true;
+
+    const tryPlay = () => {
+      audio.play().then(() => {
+        icon.textContent = '🔊';
+        fab.classList.add('spin');
+      }).catch(() => {
+        icon.textContent = '▶️';
+        fab.classList.remove('spin');
+        const startOnInteract = () => {
+          audio.play().then(() => {
+            icon.textContent = '🔊';
+            fab.classList.add('spin');
+          }).catch(() => {});
+          document.removeEventListener('click', startOnInteract);
+        };
+        document.addEventListener('click', startOnInteract, { once: true });
+      });
+    };
+    tryPlay();
+  }
+
+  function toggleMusic() {
+    const audio = document.getElementById('bgAudio');
+    const icon = document.getElementById('musicIcon');
+    const fab = document.getElementById('musicFab');
+    if (!musicLoaded) return;
+    if (audio.paused) {
+      audio.play().then(() => {
+        icon.textContent = '🔊';
+        fab.classList.add('spin');
+      }).catch(() => {});
+    } else {
+      audio.pause();
+      icon.textContent = '🔇';
+      fab.classList.remove('spin');
+    }
+  }
+
+  // ============================================================
+  // 8. ORDER PAKET (dengan QRIS)
+  // ============================================================
+
+  let pendingOrderId = null;
+
+  async function orderPaket(id) {
+    pendingOrderId = id;
+    const data = await loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    const qris = await loadQris();
+
+    const qrisHtml = qris
+      ? `<div class="qris-pay-box"><img src="${qris}" alt="QRIS"><div class="amt">Rp ${escHtml(pkg.price)}</div></div>`
+      : `<div class="qris-pay-box"><div class="amt" style="color:var(--ink-dim);font-size:12.5px;">QRIS belum tersedia, hubungi admin untuk info pembayaran.</div></div>`;
+
+    showModal({
+      title: `💳 Bayar paket ${pkg.name}`,
+      message: 'Scan QRIS di atas untuk membayar, lalu masukkan link saluran WA kamu dan konfirmasi.',
+      customHtml: qrisHtml,
+      inputs: [{ key: 'link', placeholder: 'https://whatsapp.com/channel/...', type: 'text' }],
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Sudah Bayar, Kirim ke WA', type: 'primary', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed && result.values) {
+        const link = result.values.link.trim();
+        if (!link) {
+          showModal({
+            title: '⚠️ Link Kosong',
+            message: 'Mohon masukkan link saluran WA terlebih dahulu.',
+            buttons: [{ text: 'OK', type: 'primary', value: true }]
+          });
+          return;
+        }
+        const msg = `Halo, saya sudah bayar QRIS untuk paket ${pkg.name} (Rp ${pkg.price}).\nLink saluran: ${link}\nMohon dicek dan diproses ya.`;
+        const url = "https://wa.me/6283130971335?text=" + encodeURIComponent(msg);
+        window.open(url, "_blank");
+        pendingOrderId = null;
+      } else {
+        pendingOrderId = null;
+      }
+    });
+  }
+
+  // ============================================================
+  // 9. REQUEST CUSTOM
+  // ============================================================
+
+  function kirimRequest() {
+    const text = document.getElementById('reqText').value.trim();
+    if (!text) {
+      showModal({
+        title: '⚠️ Tulis dulu request kamu',
+        message: 'Isi kolom request sebelum mengirim ke WhatsApp.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      return;
+    }
+    const msg = `Halo, saya mau request custom:\n${text}`;
+    const url = "https://wa.me/6283130971335?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  }
+
+  // ============================================================
+  // 10. OWNER PANEL (password & toggle)
+  // ============================================================
+
+  let tapCount = 0;
+  let tapTimer = null;
+  document.getElementById('footerTrigger').addEventListener('click', function() {
+    tapCount++;
+    if (tapTimer) clearTimeout(tapTimer);
+    tapTimer = setTimeout(() => { tapCount = 0; }, 1500);
+    if (tapCount >= 5) {
+      tapCount = 0;
+      mintaPasswordOwner();
+    }
+  });
+
+  async function mintaPasswordOwner() {
+    const storedPass = await loadOwnerPass();
+    showModal({
+      title: '🔒 Masuk Panel Owner',
+      message: 'Masukkan password untuk membuka panel owner.',
+      inputs: [{ key: 'pass', placeholder: 'Password', type: 'password' }],
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Masuk', type: 'primary', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed) {
+        const pass = (result.values.pass || '').trim();
+        if (pass === storedPass) {
+          document.getElementById('ownerPanel').classList.add('show');
+          renderOwnerPanel();
+          document.getElementById('ownerPanel').scrollIntoView({ behavior: 'smooth' });
+        } else {
+          showModal({
+            title: '⚠️ Password salah',
+            message: 'Password yang kamu masukkan salah.',
+            buttons: [{ text: 'OK', type: 'primary', value: true }]
+          });
+        }
+      }
+    });
+  }
+
+  async function gantiPassword() {
+    const el = document.getElementById('newPass');
+    const pass = el.value.trim();
+    if (!pass) {
+      showModal({
+        title: '⚠️ Password kosong',
+        message: 'Isi password baru terlebih dahulu.',
+        buttons: [{ text: 'OK', type: 'primary', value: true }]
+      });
+      return;
+    }
+    await saveOwnerPass(pass);
+    el.value = '';
+    showModal({
+      title: '✅ Password diubah',
+      message: 'Password owner panel berhasil diperbarui di cloud.',
+      buttons: [{ text: 'OK', type: 'primary', value: true }]
+    });
+  }
+
+  function tutupPanel() {
+    document.getElementById('ownerPanel').classList.remove('show');
+  }
+
+  // ============================================================
+  // 11. MODAL (promise-based)
+  // ============================================================
+
+  function showModal(options) {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('modalOverlay');
+      const title = document.getElementById('modalTitle');
+      const msg = document.getElementById('modalMsg');
+      const inputs = document.getElementById('modalInputs');
+      const actions = document.getElementById('modalActions');
+
+      title.textContent = options.title || 'Konfirmasi';
+      msg.textContent = options.message || '';
+      inputs.innerHTML = options.customHtml || '';
+
+      const buttons = options.buttons || [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'OK', type: 'primary', value: true }
+      ];
+
+      let resolveFn = resolve;
+      const inputRefs = {};
+
+      if (options.inputs) {
+        options.inputs.forEach((inp) => {
+          const input = document.createElement('input');
+          input.className = 'modal-input';
+          input.type = inp.type || 'text';
+          input.placeholder = inp.placeholder || '';
+          inputs.appendChild(input);
+          inputRefs[inp.key] = input;
+        });
+      }
+
+      actions.innerHTML = '';
+      buttons.forEach((btn) => {
+        const b = document.createElement('button');
+        b.className = 'modal-btn ' + (btn.type || 'secondary');
+        b.textContent = btn.text;
+        b.onclick = () => {
+          overlay.classList.remove('active');
+          const values = {};
+          Object.keys(inputRefs).forEach(k => values[k] = inputRefs[k].value);
+          resolveFn({ confirmed: !!btn.value, values: options.inputs ? values : null });
+        };
+        actions.appendChild(b);
+      });
+
+      overlay.classList.add('active');
+    });
+  }
+
+  // ============================================================
+  // 12. UTILITY
+  // ============================================================
+
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      if (m === '"') return '&quot;';
+      return m;
+    });
+  }
+
+  // ============================================================
+  // 13. INIT
+  // ============================================================
+
+  (async function init() {
+    await renderPackages();
+    await initMusicPlayer();
+  })();
+</script>
+</body>
+</html>
