@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boost Followers WA - LummXD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0F0F0F;
+    --pink: #FFB3D9;
+    --pink-soft: #FFE4F2;
+    --pink-strong: #EC4899;
+    --purple: #A855F7;
+    --purple-dark: #7E22CE;
+    --purple-soft: #F3E8FF;
+    --yellow: #FDE68A;
+    --red-soft: #FCA5A5;
+    --green: #22C55E;
+    --red: #EF4444;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #FAFAFA;
+    min-height: 100vh;
+    padding: 16px 14px 110px;
+    color: var(--black);
+    line-height: 1.4;
+    display: flex;
+    justify-content: center;
+  }
+
+  .wrap { width: 100%; max-width: 460px; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* TOP BAR */
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--purple);
+    border: 3px solid var(--black);
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 var(--black);
+    margin-bottom: 20px;
+  }
+  .topbar-logo {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: #fff;
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-weight: 900;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .topbar-name {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.7px;
+    flex: 1;
+    color: #fff;
+  }
+  .topbar-menu {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: #fff;
+    border: 2.5px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+    flex-shrink: 0;
+  }
+  .topbar-menu:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+  .topbar-menu svg {
+    width: 20px; height: 20px;
+    stroke: var(--black);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  /* BADGE */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #fff;
+    border: 2.5px solid var(--black);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .badge-pill .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 1.5px solid var(--black);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  .badge-pill .dot.offline { background: var(--red); animation: none; }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+
+  /* HEADLINE */
+  .headline {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    margin-bottom: 14px;
+  }
+  .headline .accent {
+    display: block;
+    background: linear-gradient(135deg, var(--purple), var(--pink-strong));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .headline .emoji-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px; height: 46px;
+    background: var(--purple);
+    border: 2.5px solid var(--black);
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 4px;
+    box-shadow: 3px 3px 0 var(--black);
+    transform: rotate(-4deg);
+    position: relative;
+    top: -4px;
+    color: #fff;
+  }
+  .desc {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: #333;
+    margin-bottom: 22px;
+  }
+
+  /* STATUS CARD */
+  .status-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 var(--black);
+    margin-bottom: 22px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .status-indicator {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--black);
+    flex-shrink: 0;
+  }
+  .status-indicator.online { background: var(--green); }
+  .status-indicator.offline { background: var(--red); }
+  .status-text { flex: 1; }
+  .status-live-pill {
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: var(--purple);
+    color: #fff;
+    border: 2px solid var(--black);
+    letter-spacing: 0.5px;
+  }
+
+  /* MAIN CARD (PINK) */
+  .green-card {
+    background: var(--pink);
+    border: 3px solid var(--black);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 22px;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .head-icon {
+    width: 52px; height: 52px;
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .head-icon svg {
+    width: 24px; height: 24px;
+    stroke: var(--black);
+    stroke-width: 2.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .head-text h3 {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .head-text ul {
+    list-style: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .head-text li {
+    padding-left: 14px;
+    position: relative;
+  }
+  .head-text li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 6px; height: 6px;
+    background: var(--black);
+    border-radius: 50%;
+  }
+
+  /* PAKET LIST VERTIKAL */
+  .packages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pkg {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
+    box-shadow: 3px 3px 0 var(--black);
+    position: relative;
+  }
+  .pkg:hover:not(.disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .pkg.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+  }
+  .pkg.disabled:hover {
+    transform: none;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .pkg.hot { background: var(--yellow); }
+  .pkg .idx {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 4px 9px;
+    background: var(--black);
+    color: #fff;
+    border-radius: 8px;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+    min-width: 34px;
+    text-align: center;
+  }
+  .pkg .name {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pkg .order-tag {
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    font-size: 9.5px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: linear-gradient(135deg, var(--purple), var(--pink-strong));
+    color: #fff;
+    border: 2px solid var(--black);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 var(--black);
+  }
+  .pkg .price {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--purple);
+    background: var(--purple-soft);
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 2px solid var(--black);
+    flex-shrink: 0;
+  }
+  .pkg .price::before {
+    content: 'Rp ';
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--black);
+  }
+  .pkg .arrow {
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 900;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  .pkg:hover:not(.disabled) .arrow {
+    transform: translateX(3px);
+  }
+  .pkg .offline-badge-small {
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    background: var(--red);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 100px;
+    border: 2px solid var(--black);
+    letter-spacing: 0.5px;
+    box-shadow: 2px 2px 0 var(--black);
+  }
+
+  /* FEATURES */
+  .features {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .feat {
+    flex: 1;
+    border: 2.5px solid var(--black);
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 2px 2px 0 var(--black);
+    transition: transform 0.12s;
+  }
+  .feat:hover { transform: translate(-1px, -1px); }
+  .feat .ic { font-size: 17px; margin-bottom: 6px; }
+  .feat .lb { font-size: 11px; color: var(--black); font-weight: 800; line-height: 1.3; }
+
+  /* REQUEST BOX */
+  .request-box {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 3px solid var(--black);
+    border-radius: 18px;
+    padding: 18px;
+    background: #fff;
+    box-shadow: 5px 5px 0 var(--black);
+  }
+  .req-title { font-size: 15px; font-weight: 900; }
+  .req-sub {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: -6px;
+    font-weight: 500;
+  }
+  .req-input {
+    width: 100%;
+    resize: vertical;
+    background: #FAFAFA;
+    border: 2.5px solid var(--black);
+    border-radius: 12px;
+    padding: 11px 13px;
+    color: var(--black);
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    outline: none;
+  }
+  .req-input::placeholder { color: #999; }
+  .req-input:focus { background: #fff; box-shadow: 2px 2px 0 var(--black); }
+  .req-send {
+    align-self: flex-end;
+    font-family: inherit;
+    font-size: 13px;
+    color: #fff;
+    background: var(--purple);
+    border: 3px solid var(--black);
+    padding: 11px 20px;
+    border-radius: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .req-send:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .req-send:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+
+  /* NOTE */
+  .note {
+    margin-top: 22px;
+    border: 2.5px dashed var(--black);
+    border-radius: 16px;
+    padding: 16px 18px;
+    background: var(--purple-soft);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .note .h { font-size: 13px; font-weight: 900; color: var(--black); margin-bottom: 10px; }
+  .note ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .note li {
+    font-size: 12.5px;
+    color: #333;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 600;
+  }
+  .note li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 6px; height: 6px;
+    background: var(--purple);
+    border: 1.5px solid var(--black);
+    border-radius: 50%;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 11.5px;
+    color: #666;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 2.5px solid var(--black);
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.1s;
+  }
+  .footer:hover {
+    transform: translate(-1px, -1px);
+    color: var(--purple);
+  }
+  .footer:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+
+  /* OWNER PANEL */
+  .owner-panel {
+    display: none;
+    margin-top: 20px;
+    border: 3px solid var(--black);
+    border-radius: 20px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+  .owner-panel.show { display: block; }
+  .op-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--purple);
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    border-bottom: 3px solid var(--black);
+  }
+  .op-close {
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    background: rgba(255,255,255,0.15);
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--black);
+  }
+  .op-close:hover { background: rgba(255,255,255,0.25); }
+
+  .op-list { padding: 12px 18px; }
+  .op-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 12px 0;
+    border-bottom: 2px dashed #E2E8F0;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .op-row:last-child { border-bottom: none; }
+  .op-row .op-name { flex: 1; min-width: 70px; font-weight: 800; }
+  .op-row .op-price {
+    font-size: 12px;
+    color: var(--purple);
+    font-weight: 800;
+    background: var(--purple-soft);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1.5px solid var(--black);
+  }
+  .op-row button {
+    font-family: inherit;
+    font-size: 10.5px;
+    font-weight: 800;
+    border: 2px solid var(--black);
+    border-radius: 8px;
+    padding: 5px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 2px 2px 0 var(--black);
+  }
+  .op-row button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .op-row button:active {
+    transform: translate(1px, 1px);
+    box-shadow: none;
+  }
+  .op-edit { background: var(--purple-soft); color: var(--purple); }
+  .op-del { background: #FECACA; color: #B91C1C; }
+  .op-hot {
+    background: #fff;
+    color: #999;
+    font-size: 14px !important;
+    padding: 3px 8px !important;
+    line-height: 1;
+  }
+  .op-hot.active { color: var(--pink-strong); background: var(--pink-soft); }
+
+  .op-add {
+    padding: 16px 18px 18px;
+    border-top: 2.5px dashed #E2E8F0;
+  }
+  .op-add-title { font-size: 12px; font-weight: 800; color: #555; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .op-input {
+    width: 100%;
+    background: #FAFAFA;
+    border: 2.5px solid var(--black);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--black);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    outline: none;
+  }
+  .op-input:focus { background: #fff; box-shadow: 2px 2px 0 var(--black); }
+  .op-btn.add {
+    width: 100%;
+    background: var(--purple);
+    color: #fff;
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 11px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .op-btn.add:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .op-btn.add:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+
+  .op-status-toggle {
+    padding: 16px 18px;
+    border-top: 2.5px dashed #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .op-status-toggle .label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .op-status-toggle .label .dot-indicator {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid var(--black);
+  }
+  .op-status-toggle .label .dot-indicator.online { background: var(--green); }
+  .op-status-toggle .label .dot-indicator.offline { background: var(--red); }
+  .toggle-switch {
+    position: relative;
+    width: 52px; height: 28px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background: #CBD5E1;
+    border: 2.5px solid var(--black);
+    transition: background 0.3s;
+  }
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 18px; height: 18px;
+    left: 3px; bottom: 2px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--black);
+    transition: transform 0.3s;
+  }
+  .toggle-switch input:checked + .toggle-slider { background: var(--green); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+
+  .op-music {
+    padding: 16px 18px 18px;
+    border-top: 2.5px dashed #E2E8F0;
+  }
+  .music-current {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    background: var(--purple-soft);
+    border-radius: 10px;
+    border: 2px solid var(--black);
+    word-break: break-all;
+    font-weight: 600;
+  }
+  .op-music input[type="text"] {
+    width: 100%;
+    background: #FAFAFA;
+    border: 2.5px solid var(--black);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--black);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    outline: none;
+  }
+  .op-music input[type="text"]:focus { background: #fff; box-shadow: 2px 2px 0 var(--black); }
+  .op-music .btn-save-music {
+    width: 100%;
+    background: var(--purple);
+    color: #fff;
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 11px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .op-music .btn-save-music:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .op-music .btn-remove-music {
+    width: 100%;
+    background: #FECACA;
+    color: #B91C1C;
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 9px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .op-music .btn-remove-music:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+
+  /* CHAT MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.65);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 22px;
+    max-width: 420px;
+    width: 100%;
+    padding: 0;
+    box-shadow: 8px 8px 0 var(--black);
+    margin: auto;
+    overflow: hidden;
+    animation: popIn 0.25s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-chat-header {
+    padding: 14px 18px;
+    background: var(--purple);
+    border-bottom: 3px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-chat-header .chat-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .modal-chat-header .chat-title .avatar {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .modal-chat-header .chat-close {
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    width: 30px; height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid var(--black);
+    border-radius: 8px;
+  }
+  .modal-chat-header .chat-close:hover { background: rgba(255,255,255,0.25); }
+  .modal-chat-body {
+    padding: 16px;
+    max-height: 480px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #F8FAFC;
+  }
+  .chat-bubble {
+    max-width: 88%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    word-break: break-word;
+    animation: bubbleIn 0.25s ease;
+    border: 2.5px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  @keyframes bubbleIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .chat-bubble.admin {
+    align-self: flex-start;
+    background: var(--purple-soft);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-bubble.admin .bubble-label {
+    font-size: 10.5px;
+    font-weight: 900;
+    color: var(--purple);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .chat-bubble.user {
+    align-self: flex-end;
+    background: var(--pink);
+    border-bottom-right-radius: 4px;
+  }
+  .chat-bubble .pkg-detail {
+    margin-top: 8px;
+    font-weight: 900;
+    color: var(--purple);
+    font-size: 14px;
+  }
+  .chat-bubble .pkg-detail small { font-weight: 700; color: var(--black); font-size: 12px; }
+  .chat-bubble .price-highlight {
+    color: var(--black);
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 900;
+    background: var(--yellow);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 2px solid var(--black);
+  }
+  .modal-chat-footer {
+    padding: 14px 18px 18px;
+    border-top: 3px solid var(--black);
+    background: #fff;
+  }
+  .chat-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .chat-input-row input {
+    flex: 1;
+    background: #FAFAFA;
+    border: 2.5px solid var(--black);
+    border-radius: 12px;
+    padding: 10px 14px;
+    color: var(--black);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+  }
+  .chat-input-row input:focus { background: #fff; box-shadow: 2px 2px 0 var(--black); }
+  .chat-input-row input::placeholder { color: #999; }
+  .chat-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  .chat-actions .btn {
+    font-family: inherit;
+    font-size: 12.5px;
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .chat-actions .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+  .chat-actions .btn.primary { background: var(--purple); color: #fff; }
+  .chat-actions .btn.primary:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .chat-actions .btn.secondary { background: #fff; color: var(--black); }
+  .chat-actions .btn.secondary:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .chat-actions .btn.danger { background: #FECACA; color: #B91C1C; }
+  .chat-actions .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* QRIS MODAL */
+  .qris-box {
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 22px;
+    max-width: 360px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    animation: popIn 0.25s ease;
+    box-shadow: 8px 8px 0 var(--black);
+  }
+  .qris-box h3 {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 4px;
+  }
+  .qris-box .qris-sub {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .qris-box .qris-img-wrap {
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 14px;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .qris-box .qris-img-wrap img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+  }
+  .qris-box .qris-amount {
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--purple);
+    margin-bottom: 4px;
+    background: var(--purple-soft);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 2.5px solid var(--black);
+    display: inline-block;
+  }
+  .qris-box .qris-note {
+    font-size: 11.5px;
+    color: #555;
+    margin: 12px 0 16px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  .qris-box .qris-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .qris-box .qris-actions button {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .qris-box .qris-actions button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+  .qris-box .qris-actions button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+  .qris-box .btn-paid { background: var(--purple); color: #fff; }
+  .qris-box .btn-cancel { background: #fff; color: var(--black); }
+
+  /* GENERIC MODAL */
+  .modal-generic {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.65);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 16px;
+  }
+  .modal-generic.active { display: flex; }
+  .modal-generic .modal-box {
+    background: #fff;
+    border: 3px solid var(--black);
+    border-radius: 20px;
+    max-width: 400px;
+    width: 100%;
+    padding: 24px 22px;
+    box-shadow: 8px 8px 0 var(--black);
+    animation: popIn 0.25s ease;
+  }
+  .modal-generic .modal-title { font-size: 16px; font-weight: 900; color: var(--black); margin-bottom: 12px; }
+  .modal-generic .modal-msg { font-size: 13.5px; color: #555; margin-bottom: 16px; line-height: 1.55; font-weight: 500; }
+  .modal-generic .modal-input {
+    width: 100%;
+    background: #FAFAFA;
+    border: 2.5px solid var(--black);
+    border-radius: 10px;
+    padding: 11px 13px;
+    color: var(--black);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    outline: none;
+  }
+  .modal-generic .modal-input:focus { background: #fff; box-shadow: 2px 2px 0 var(--black); }
+  .modal-generic .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+  .modal-generic .modal-btn {
+    font-family: inherit;
+    font-size: 12px;
+    border: 2.5px solid var(--black);
+    border-radius: 10px;
+    padding: 9px 18px;
+    cursor: pointer;
+    font-weight: 800;
+    box-shadow: 2px 2px 0 var(--black);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .modal-generic .modal-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .modal-generic .modal-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: none;
+  }
+  .modal-generic .modal-btn.primary { background: var(--purple); color: #fff; }
+  .modal-generic .modal-btn.secondary { background: #fff; color: var(--black); }
+  .modal-generic .modal-btn.danger { background: #FECACA; color: #B91C1C; }
+
+  /* ============ FOLLOW MODAL (POPUP SALURAN) ============ */
+  .follow-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 2000;
+  }
+  .follow-modal.show { display: flex; }
+  .follow-card {
+    background: var(--pink);
+    border: 3px solid var(--black);
+    border-radius: 22px;
+    padding: 26px 22px 22px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 8px 8px 0 var(--black);
+    animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .follow-icon {
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    background: #fff;
+    border: 3px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .follow-icon svg {
+    width: 34px; height: 34px;
+    stroke: var(--purple);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .follow-card h3 {
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+  .follow-card .desc {
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    color: #111;
+  }
+  .follow-card .desc b { color: var(--purple-dark); font-weight: 900; }
+  .follow-benefits {
+    background: #fff;
+    border: 2.5px solid var(--black);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    text-align: left;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .follow-benefits .item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 0;
+  }
+  .follow-benefits .chk {
+    width: 18px; height: 18px;
+    border-radius: 6px;
+    background: var(--purple);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .btn-follow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 15px;
+    background: var(--purple);
+    color: #fff;
+    text-decoration: none;
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-bottom: 8px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+    transition: transform 0.1s;
+  }
+  .btn-follow:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+  }
+  .btn-follow .wa-ic { width: 18px; height: 18px; }
+  .btn-skip {
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    color: var(--black);
+    border: 2.5px solid var(--black);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--black);
+    transition: transform 0.1s;
+  }
+  .btn-skip:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  /* MUSIC FAB */
+  .music-fab {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--purple);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--black);
+    z-index: 500;
+    border: 3px solid var(--black);
+    color: #fff;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .music-fab.show { display: flex; }
+  .music-fab:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--black);
+  }
+  .music-fab:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--black);
+  }
+  .music-fab.spin .ic-note { animation: spin 3s linear infinite; display: inline-block; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* TOAST */
+  .toast-float {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--black);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 4px 4px 0 var(--purple);
+    z-index: 9999;
+    max-width: 90%;
+    text-align: center;
+    animation: popIn 0.25s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar reveal">
+    <div class="topbar-logo">&lt;/&gt;</div>
+    <div class="topbar-name">LummXD Store</div>
+    <div class="topbar-menu">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </div>
+  </div>
+
+  <!-- BADGE -->
+  <div class="badge-pill reveal">
+    <span class="dot" id="statusDot"></span>
+    <span id="statusLabel">Memuat...</span>
+  </div>
+
+  <!-- HEADLINE -->
+  <h1 class="headline reveal">
+    Boost Followers
+    <span class="accent">Saluran WhatsApp</span>
+    <span class="emoji-box">WA</span>
+  </h1>
+
+  <p class="desc reveal">
+    Naikkan jumlah followers saluran WA kamu. Tinggal pilih paket, isi link saluran, bayar via QRIS.
+  </p>
+
+  <!-- STATUS CARD -->
+  <div class="status-card reveal">
+    <span class="status-indicator online" id="statusIndicator"></span>
+    <span class="status-text" id="statusText">Layanan aktif</span>
+    <span class="status-live-pill">LIVE</span>
+  </div>
+
+  <!-- MAIN CARD -->
+  <div class="green-card reveal">
+    <div class="card-head">
+      <div class="head-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <div class="head-text">
+        <h3>Pilih Paket Followers</h3>
+        <ul>
+          <li>Tap paket, isi link, bayar</li>
+          <li>Proses cepat & aman</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="packages" id="pkgList"></div>
+
+    <div class="features">
+      <div class="feat"><div class="ic">⚡</div><div class="lb">Proses cepat</div></div>
+      <div class="feat"><div class="ic">🔒</div><div class="lb">Aman & terpercaya</div></div>
+      <div class="feat"><div class="ic">💬</div><div class="lb">Order via WA</div></div>
+    </div>
+  </div>
+
+  <!-- REQUEST BOX -->
+  <div class="request-box reveal">
+    <div class="req-title">🎯 Request custom</div>
+    <div class="req-sub">Butuh jumlah followers lain? Tulis di sini, langsung ke WA admin.</div>
+    <textarea id="reqText" class="req-input" rows="3" placeholder="Contoh: mau 200 followers, link saluran: ..."></textarea>
+    <button class="req-send" onclick="kirimRequest()">Kirim ke WhatsApp</button>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note reveal">
+    <div class="h">⚠ Catatan singkat</div>
+    <ul>
+      <li>Harga dapat berubah sewaktu-waktu</li>
+      <li>Wajib kirim link saluran yang benar</li>
+      <li>No refund setelah proses berjalan</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer reveal" id="footerTrigger">DEV BY LUMMXD</div>
+
+  <!-- OWNER PANEL -->
+  <div class="owner-panel" id="ownerPanel">
+    <div class="op-head">
+      <span>🔒 Panel Owner</span>
+      <span class="op-close" onclick="tutupPanel()">✕</span>
+    </div>
+
+    <div class="op-status-toggle">
+      <span class="label">
+        <span class="dot-indicator online" id="ownerStatusDot"></span>
+        Status Layanan
+      </span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="statusToggle" onchange="toggleStatus(this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="op-list" id="opList"></div>
+
+    <div class="op-add">
+      <div class="op-add-title">Tambah paket</div>
+      <input type="text" id="newName" class="op-input" placeholder="Nama paket, cth: 200 Followers">
+      <input type="text" id="newPrice" class="op-input" placeholder="Harga, cth: 2000">
+      <button class="op-btn add" onclick="tambahPaket()">+ Tambah Paket</button>
+    </div>
+
+    <div class="op-music">
+      <div class="op-add-title">🎵 Musik latar (URL MP3)</div>
+      <div class="music-current" id="musicCurrent">Belum ada link musik</div>
+      <input type="text" id="musicUrlInput" placeholder="https://example.com/lagu.mp3" />
+      <button class="btn-save-music" onclick="simpanMusicUrl()">💾 Simpan URL Musik</button>
+      <button class="btn-remove-music" onclick="hapusMusicUrl()">🗑 Hapus Musik</button>
+    </div>
+
+    <div class="op-add" style="border-top: 2.5px dashed #E2E8F0;">
+      <div class="op-add-title">🔑 Ganti password owner</div>
+      <input type="password" id="newPass" class="op-input" placeholder="Password baru">
+      <button class="op-btn add" onclick="gantiPassword()">Simpan Password</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgAudio" loop></audio>
+<button class="music-fab" id="musicFab" onclick="toggleMusic()">
+  <span class="ic-note" id="musicIcon">🔊</span>
+</button>
+
+<!-- CHAT MODAL -->
+<div class="modal-overlay" id="chatModal">
+  <div class="modal-box">
+    <div class="modal-chat-header">
+      <div class="chat-title">
+        <span class="avatar">💬</span>
+        <span id="chatTitle">Order Paket</span>
+      </div>
+      <span class="chat-close" onclick="closeChatModal()">✕</span>
+    </div>
+    <div class="modal-chat-body" id="chatBody"></div>
+    <div class="modal-chat-footer">
+      <div class="chat-input-row">
+        <input type="text" id="chatLinkInput" placeholder="Masukkan link saluran WA ..." />
+      </div>
+      <div class="chat-actions">
+        <button class="btn secondary" onclick="closeChatModal()">Batal</button>
+        <button class="btn primary" id="chatOrderBtn" onclick="submitOrder()">📱 Lanjut Bayar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QRIS MODAL -->
+<div class="modal-generic" id="qrisModal">
+  <div class="qris-box">
+    <h3 id="qrisTitle">Pembayaran QRIS</h3>
+    <div class="qris-sub">Scan pakai m-banking / e-wallet apa saja</div>
+    <div class="qris-img-wrap">
+      <img src="qris.jpg" alt="QRIS Pembayaran" onerror="this.parentElement.innerHTML='<div style=\'padding:30px 10px;color:#333;font-size:12px;line-height:1.5;font-weight:700;\'>⚠️ File <b>qris.jpg</b> tidak ditemukan<br>Taruh di folder yang sama dengan index.html</div>'">
+    </div>
+    <div class="qris-amount" id="qrisAmount">Rp 0</div>
+    <div class="qris-note">
+      Setelah bayar, tekan tombol di bawah untuk konfirmasi ke admin via WhatsApp.
+    </div>
+    <div class="qris-actions">
+      <button class="btn-paid" onclick="konfirmasiBayar()">✅ Saya sudah bayar → Konfirmasi WA</button>
+      <button class="btn-cancel" onclick="tutupQris()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- GENERIC MODAL -->
+<div class="modal-generic" id="genericModal">
+  <div class="modal-box">
+    <div class="modal-title" id="genTitle">Judul</div>
+    <div class="modal-msg" id="genMsg"></div>
+    <div id="genInputs"></div>
+    <div class="modal-actions" id="genActions"></div>
+  </div>
+</div>
+
+<!-- ============ FOLLOW MODAL (POPUP SALURAN) ============ -->
+<div class="follow-modal" id="followModal">
+  <div class="follow-card">
+    <div class="follow-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 11l18-5v12L3 14v-3z"/>
+        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+      </svg>
+    </div>
+    <h3>Follow Saluran LummXD</h3>
+    <p class="desc">Dapetin info <b>update produk</b> & harga terbaru langsung dari owner!</p>
+
+    <div class="follow-benefits">
+      <div class="item"><span class="chk">✓</span> Update & info terbaru</div>
+      <div class="item"><span class="chk">✓</span> Produk baru lebih dulu</div>
+      <div class="item"><span class="chk">✓</span> Harga & stok terkini</div>
+    </div>
+
+    <a href="https://whatsapp.com/channel/0029Vb8UPJqDzgTEfcxodd1v" id="btnFollow" class="btn-follow" target="_blank">
+      <svg class="wa-ic" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+      </svg>
+      Follow Sekarang
+    </a>
+    <button class="btn-skip" id="btnSkip">Nanti aja</button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'boost_packages';
+  const PASS_KEY = 'boost_owner_pass';
+  const MUSIC_URL_KEY = 'boost_music_url';
+  const STATUS_KEY = 'boost_status';
+  const DEFAULT_PASS = 'admin112';
+  const DEFAULT_MUSIC = 'https://feeldreams.github.io/audio/seandainya.mp3';
+
+  function getStatus() { return localStorage.getItem(STATUS_KEY) || 'online'; }
+  function setStatus(status) {
+    localStorage.setItem(STATUS_KEY, status);
+    updateStatusUI();
+  }
+  function updateStatusUI() {
+    const status = getStatus();
+    const dot = document.getElementById('statusDot');
+    const label = document.getElementById('statusLabel');
+    const indicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    const ownerDot = document.getElementById('ownerStatusDot');
+    const toggle = document.getElementById('statusToggle');
+    if (status === 'online') {
+      dot.className = 'dot';
+      label.textContent = 'Online · Layanan aktif';
+      indicator.className = 'status-indicator online';
+      statusText.textContent = 'Layanan aktif';
+      if (ownerDot) ownerDot.className = 'dot-indicator online';
+      if (toggle) toggle.checked = true;
+    } else {
+      dot.className = 'dot offline';
+      label.textContent = 'Offline · Layanan tutup';
+      indicator.className = 'status-indicator offline';
+      statusText.textContent = 'Layanan tutup';
+      if (ownerDot) ownerDot.className = 'dot-indicator offline';
+      if (toggle) toggle.checked = false;
+    }
+    renderPackages();
+  }
+  function toggleStatus(checked) { setStatus(checked ? 'online' : 'offline'); }
+
+  function loadOwnerPass() { return localStorage.getItem(PASS_KEY) || DEFAULT_PASS; }
+  function saveOwnerPass(pass) { localStorage.setItem(PASS_KEY, pass); }
+  function getDefaultPackages() {
+    return [
+      { id: 1, name: "10 Followers", price: "100", hot: true },
+      { id: 2, name: "20 Followers", price: "200", hot: false },
+      { id: 3, name: "50 Followers", price: "500", hot: false },
+      { id: 4, name: "100 Followers", price: "1.000", hot: false },
+      { id: 5, name: "1.000 Followers", price: "9.950", hot: false },
+      { id: 6, name: "3.000 Followers", price: "30.000", hot: false },
+      { id: 7, name: "5.000 Followers", price: "50.000", hot: false }
+    ];
+  }
+  function loadPackages() {
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      let def = getDefaultPackages();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(def));
+      return def;
+    }
+    try {
+      let data = JSON.parse(raw);
+      if (!Array.isArray(data) || data.length === 0) {
+        let def = getDefaultPackages();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(def));
+        return def;
+      }
+      let needFix = data.some(p => p.id === undefined);
+      if (needFix) {
+        data = data.map((p, i) => ({ ...p, id: Date.now() + i }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+      return data;
+    } catch (e) {
+      let def = getDefaultPackages();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(def));
+      return def;
+    }
+  }
+  function savePackages(packages) { localStorage.setItem(STORAGE_KEY, JSON.stringify(packages)); }
+
+  function getMusicUrl() { return localStorage.getItem(MUSIC_URL_KEY) || DEFAULT_MUSIC; }
+  function setMusicUrl(url) { localStorage.setItem(MUSIC_URL_KEY, url); }
+  function removeMusicUrl() { localStorage.removeItem(MUSIC_URL_KEY); }
+
+  function escHtml(str) { if (!str) return ''; return String(str).replace(/[&<>"]/g, function(m) { if (m==='&') return '&amp;'; if (m==='<') return '&lt;'; if (m==='>') return '&gt;'; if (m==='"') return '&quot;'; return m; }); }
+
+  function renderPackages() {
+    const container = document.getElementById('pkgList');
+    const data = loadPackages();
+    const status = getStatus();
+    const isOnline = status === 'online';
+    if (!data.length) {
+      container.innerHTML = '<div class="pkg" style="justify-content:center;color:#666;">Belum ada paket</div>';
+      return;
+    }
+    let html = '';
+    data.forEach((pkg, index) => {
+      const hotClass = pkg.hot ? 'hot' : '';
+      const disabledClass = isOnline ? '' : 'disabled';
+      const offlineBadge = isOnline ? '' : '<span class="offline-badge-small">OFF</span>';
+      const orderTag = pkg.hot ? '<span class="order-tag">HOT</span>' : '';
+      html += `
+        <div class="pkg ${hotClass} ${disabledClass}" onclick="${isOnline ? `openChatOrder(${pkg.id})` : ''}" style="${!isOnline ? 'cursor:not-allowed;' : ''}">
+          <span class="idx">${String(index+1).padStart(2,'0')}</span>
+          <span class="name">${escHtml(pkg.name)}</span>
+          <span class="price">${escHtml(pkg.price)}</span>
+          <span class="arrow">→</span>
+          ${orderTag}
+          ${offlineBadge}
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  function renderOwnerPanel() {
+    const container = document.getElementById('opList');
+    const data = loadPackages();
+    if (!data.length) {
+      container.innerHTML = '<div style="padding:12px 0;color:#666;font-weight:700;">Tidak ada paket.</div>';
+    } else {
+      let html = '';
+      data.forEach((pkg) => {
+        const hotClass = pkg.hot ? 'active' : '';
+        const hotIcon = pkg.hot ? '★' : '☆';
+        html += `
+          <div class="op-row">
+            <span class="op-name">${escHtml(pkg.name)}</span>
+            <span class="op-price">Rp ${escHtml(pkg.price)}</span>
+            <button class="op-hot ${hotClass}" onclick="toggleHot(${pkg.id})" title="Toggle Terlaris">${hotIcon}</button>
+            <button class="op-edit" onclick="editPaket(${pkg.id})">Edit</button>
+            <button class="op-del" onclick="hapusPaket(${pkg.id})">Hapus</button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+    renderMusicCurrent();
+    const status = getStatus();
+    const toggle = document.getElementById('statusToggle');
+    if (toggle) toggle.checked = (status === 'online');
+    const ownerDot = document.getElementById('ownerStatusDot');
+    if (ownerDot) ownerDot.className = 'dot-indicator ' + (status === 'online' ? 'online' : 'offline');
+  }
+
+  function renderMusicCurrent() {
+    const box = document.getElementById('musicCurrent');
+    if (!box) return;
+    const url = getMusicUrl();
+    box.textContent = url ? '🎵 ' + url : 'Belum ada link musik';
+  }
+
+  function simpanMusicUrl() {
+    const input = document.getElementById('musicUrlInput');
+    const url = input.value.trim();
+    if (!url) { showToast('⚠️ Masukkan URL MP3 yang valid.'); return; }
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      showToast('⚠️ URL harus diawali http:// atau https://');
+      return;
+    }
+    setMusicUrl(url);
+    renderMusicCurrent();
+    initMusicPlayer();
+    showToast('✅ URL musik disimpan!');
+    input.value = '';
+  }
+
+  function hapusMusicUrl() {
+    showModalGenerik({
+      title: '⚠️ Hapus Musik?',
+      message: 'URL musik akan dihapus, musik akan berhenti.',
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Hapus', type: 'danger', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed) {
+        removeMusicUrl();
+        renderMusicCurrent();
+        const audio = document.getElementById('bgAudio');
+        audio.pause();
+        audio.removeAttribute('src');
+        document.getElementById('musicFab').classList.remove('show');
+        showToast('🎵 Musik dihapus.');
+      }
+    });
+  }
+
+  function toggleMusic() {
+    const audio = document.getElementById('bgAudio');
+    const icon = document.getElementById('musicIcon');
+    const fab = document.getElementById('musicFab');
+    if (audio.paused) {
+      audio.play().then(() => { icon.textContent = '🔊'; fab.classList.add('spin'); }).catch(() => {});
+    } else {
+      audio.pause();
+      icon.textContent = '🔇';
+      fab.classList.remove('spin');
+    }
+  }
+
+  function initMusicPlayer() {
+    const url = getMusicUrl();
+    const audio = document.getElementById('bgAudio');
+    const fab = document.getElementById('musicFab');
+    const icon = document.getElementById('musicIcon');
+    if (!url) { fab.classList.remove('show'); return; }
+    audio.src = url;
+    audio.volume = 0.5;
+    fab.classList.add('show');
+    const tryPlay = () => {
+      audio.play().then(() => { icon.textContent = '🔊'; fab.classList.add('spin'); }).catch(() => {
+        icon.textContent = '▶️';
+        fab.classList.remove('spin');
+        const startOnInteract = () => {
+          audio.play().then(() => { icon.textContent = '🔊'; fab.classList.add('spin'); }).catch(() => {});
+          document.removeEventListener('click', startOnInteract);
+        };
+        document.addEventListener('click', startOnInteract, { once: true });
+      });
+    };
+    tryPlay();
+  }
+
+  function toggleHot(id) {
+    let data = loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    pkg.hot = !pkg.hot;
+    savePackages(data);
+    renderPackages();
+    renderOwnerPanel();
+  }
+
+  let currentOrderPkg = null;
+
+  function openChatOrder(id) {
+    if (getStatus() !== 'online') { showToast('⚠️ Layanan sedang offline, coba lagi nanti.'); return; }
+    const data = loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    currentOrderPkg = pkg;
+
+    const modal = document.getElementById('chatModal');
+    const body = document.getElementById('chatBody');
+    const title = document.getElementById('chatTitle');
+    const linkInput = document.getElementById('chatLinkInput');
+    const orderBtn = document.getElementById('chatOrderBtn');
+
+    title.textContent = `Order ${pkg.name}`;
+    linkInput.value = '';
+    linkInput.placeholder = 'https://whatsapp.com/channel/...';
+    orderBtn.disabled = false;
+    orderBtn.textContent = '📱 Lanjut Bayar';
+
+    let html = `
+      <div class="chat-bubble admin">
+        <div class="bubble-label">🛒 Admin</div>
+        <div>Kamu akan memesan paket <strong>${escHtml(pkg.name)}</strong> dengan harga <span class="price-highlight">Rp ${escHtml(pkg.price)}</span>.</div>
+        <div style="margin-top:6px;">Isi link saluran WA kamu di kolom bawah, lalu tekan <strong>Lanjut Bayar</strong>.</div>
+        <div class="pkg-detail" style="margin-top:10px;">
+          ${escHtml(pkg.name)} <small>×</small> <span class="price-highlight">Rp ${escHtml(pkg.price)}</span>
+        </div>
+      </div>
+      <div class="chat-bubble user" id="userLinkBubble" style="display:none;">
+        <span style="font-size:10px;color:#666;font-weight:800;">ANDA</span>
+        <div id="userLinkText"></div>
+      </div>
+    `;
+    body.innerHTML = html;
+    modal.classList.add('active');
+    setTimeout(() => linkInput.focus(), 200);
+  }
+
+  function submitOrder() {
+    const linkInput = document.getElementById('chatLinkInput');
+    const link = linkInput.value.trim();
+    if (!link) { showToast('⚠️ Masukkan link saluran WA dulu.'); linkInput.focus(); return; }
+    if (!link.includes('whatsapp.com') && !link.includes('wa.me')) { showToast('⚠️ Link WA tidak valid.'); linkInput.focus(); return; }
+    if (!currentOrderPkg) return;
+    const pkg = currentOrderPkg;
+    closeChatModal();
+    bukaQris(pkg, link);
+  }
+
+  function closeChatModal() {
+    document.getElementById('chatModal').classList.remove('active');
+    currentOrderPkg = null;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const linkInput = document.getElementById('chatLinkInput');
+    if (linkInput) linkInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); submitOrder(); } });
+  });
+
+  let qrisPkg = null;
+  let qrisLink = '';
+
+  function bukaQris(pkg, link) {
+    qrisPkg = pkg;
+    qrisLink = link;
+    document.getElementById('qrisTitle').textContent = 'Pembayaran: ' + pkg.name;
+    document.getElementById('qrisAmount').textContent = 'Rp ' + pkg.price;
+    document.getElementById('qrisModal').classList.add('active');
+  }
+
+  function tutupQris() {
+    document.getElementById('qrisModal').classList.remove('active');
+    qrisPkg = null;
+    qrisLink = '';
+  }
+
+  function konfirmasiBayar() {
+    if (!qrisPkg) return;
+    const msg = `Halo admin, saya SUDAH BAYAR via QRIS.\n\n` +
+                `Paket: ${qrisPkg.name}\n` +
+                `Harga: Rp ${qrisPkg.price}\n` +
+                `Link saluran: ${qrisLink}\n\n` +
+                `Mohon segera diproses ya 🙏`;
+    const url = "https://wa.me/6283130971335?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+    tutupQris();
+  }
+
+  document.getElementById('qrisModal').addEventListener('click', function(e) {
+    if (e.target === this) tutupQris();
+  });
+
+  function showModalGenerik(options) {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('genericModal');
+      const title = document.getElementById('genTitle');
+      const msg = document.getElementById('genMsg');
+      const inputs = document.getElementById('genInputs');
+      const actions = document.getElementById('genActions');
+
+      title.textContent = options.title || 'Konfirmasi';
+      msg.textContent = options.message || '';
+      inputs.innerHTML = options.customHtml || '';
+
+      const buttons = options.buttons || [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'OK', type: 'primary', value: true }
+      ];
+
+      let resolveFn = resolve;
+      const inputRefs = {};
+
+      if (options.inputs) {
+        options.inputs.forEach((inp) => {
+          const input = document.createElement('input');
+          input.className = 'modal-input';
+          input.type = inp.type || 'text';
+          input.placeholder = inp.placeholder || '';
+          inputs.appendChild(input);
+          inputRefs[inp.key] = input;
+        });
+      }
+
+      actions.innerHTML = '';
+      buttons.forEach((btn) => {
+        const b = document.createElement('button');
+        b.className = 'modal-btn ' + (btn.type || 'secondary');
+        b.textContent = btn.text;
+        b.onclick = () => {
+          overlay.classList.remove('active');
+          const values = {};
+          Object.keys(inputRefs).forEach(k => values[k] = inputRefs[k].value);
+          resolveFn({ confirmed: !!btn.value, values: options.inputs ? values : null });
+        };
+        actions.appendChild(b);
+      });
+
+      overlay.classList.add('active');
+    });
+  }
+
+  function tambahPaket() {
+    const nameEl = document.getElementById('newName');
+    const priceEl = document.getElementById('newPrice');
+    const name = nameEl.value.trim();
+    const price = priceEl.value.trim();
+    if (!name || !price) { showToast('⚠️ Isi nama paket dan harga.'); return; }
+    let data = loadPackages();
+    data.push({ id: Date.now(), name, price, hot: false });
+    savePackages(data);
+    nameEl.value = ''; priceEl.value = '';
+    renderPackages(); renderOwnerPanel();
+    showToast('✅ Paket ditambahkan!');
+  }
+
+  function editPaket(id) {
+    let data = loadPackages();
+    const pkg = data.find(p => p.id === id);
+    if (!pkg) return;
+    showModalGenerik({
+      title: '✏️ Edit Paket',
+      message: 'Ubah nama dan harga paket.',
+      inputs: [
+        { key: 'name', placeholder: 'Nama paket', type: 'text' },
+        { key: 'price', placeholder: 'Harga (Rp)', type: 'text' }
+      ],
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Simpan', type: 'primary', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed && result.values) {
+        const name = result.values.name.trim() || pkg.name;
+        const price = result.values.price.trim() || pkg.price;
+        pkg.name = name; pkg.price = price;
+        savePackages(data);
+        renderPackages(); renderOwnerPanel();
+        showToast('✅ Paket diupdate!');
+      }
+    });
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('#genericModal .modal-input');
+      if (inputs[0]) inputs[0].value = pkg.name;
+      if (inputs[1]) inputs[1].value = pkg.price;
+    }, 100);
+  }
+
+  function hapusPaket(id) {
+    showModalGenerik({
+      title: '⚠️ Hapus Paket?',
+      message: 'Paket ini akan dihapus permanen. Yakin?',
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Hapus', type: 'danger', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed) {
+        let data = loadPackages();
+        data = data.filter(p => p.id !== id);
+        savePackages(data);
+        renderPackages(); renderOwnerPanel();
+        showToast('🗑️ Paket dihapus.');
+      }
+    });
+  }
+
+  function kirimRequest() {
+    const text = document.getElementById('reqText').value.trim();
+    if (!text) { showToast('⚠️ Tulis request kamu dulu.'); return; }
+    const msg = `Halo, saya mau request custom:\n${text}`;
+    const url = "https://wa.me/6283130971335?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  }
+
+  let tapCount = 0, tapTimer = null;
+  document.getElementById('footerTrigger').addEventListener('click', function() {
+    tapCount++;
+    if (tapTimer) clearTimeout(tapTimer);
+    tapTimer = setTimeout(() => { tapCount = 0; }, 1500);
+    if (tapCount >= 5) {
+      tapCount = 0;
+      mintaPasswordOwner();
+    }
+  });
+
+  function mintaPasswordOwner() {
+    showModalGenerik({
+      title: '🔒 Masuk Panel Owner',
+      message: 'Masukkan password untuk membuka panel owner.',
+      inputs: [{ key: 'pass', placeholder: 'Password', type: 'password' }],
+      buttons: [
+        { text: 'Batal', type: 'secondary', value: false },
+        { text: 'Masuk', type: 'primary', value: true }
+      ]
+    }).then(result => {
+      if (result.confirmed && result.values) {
+        const pass = (result.values.pass || '').trim();
+        if (pass === loadOwnerPass()) {
+          document.getElementById('ownerPanel').classList.add('show');
+          renderOwnerPanel();
+          document.getElementById('ownerPanel').scrollIntoView({ behavior: 'smooth' });
+          showToast('🔓 Panel owner dibuka.');
+        } else {
+          showToast('⚠️ Password salah!');
+        }
+      }
+    });
+  }
+
+  function gantiPassword() {
+    const el = document.getElementById('newPass');
+    const pass = el.value.trim();
+    if (!pass) { showToast('⚠️ Isi password baru.'); return; }
+    saveOwnerPass(pass);
+    el.value = '';
+    showToast('✅ Password owner diubah!');
+  }
+
+  function tutupPanel() {
+    document.getElementById('ownerPanel').classList.remove('show');
+    showToast('Panel owner ditutup.');
+  }
+
+  function showToast(msg) {
+    const old = document.querySelector('.toast-float');
+    if (old) old.remove();
+    const div = document.createElement('div');
+    div.className = 'toast-float';
+    div.textContent = msg;
+    document.body.appendChild(div);
+    setTimeout(() => {
+      div.style.opacity = '0';
+      div.style.transition = 'opacity 0.3s';
+      setTimeout(() => div.remove(), 400);
+    }, 3500);
+  }
+
+  // ====== FOLLOW MODAL (POPUP) ======
+  const followModal = document.getElementById('followModal');
+  const btnFollow = document.getElementById('btnFollow');
+  const btnSkip = document.getElementById('btnSkip');
+
+  // Muncul otomatis setelah 800ms
+  setTimeout(() => followModal.classList.add('show'), 800);
+
+  function closeFollowModal() { followModal.classList.remove('show'); }
+  btnFollow.addEventListener('click', () => setTimeout(closeFollowModal, 300));
+  btnSkip.addEventListener('click', closeFollowModal);
+  followModal.addEventListener('click', e => {
+    if (e.target === followModal) closeFollowModal();
+  });
+
+  // ====== INIT ======
+  updateStatusUI();
+  renderPackages();
+  renderOwnerPanel();
+  initMusicPlayer();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 40);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('genericModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+  document.getElementById('chatModal').addEventListener('click', function(e) {
+    if (e.target === this) closeChatModal();
+  });
+</script>
+</body>
+</html>
